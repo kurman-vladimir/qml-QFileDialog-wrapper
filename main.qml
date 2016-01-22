@@ -4,10 +4,25 @@ import QtQuick.Window 2.2
 import DialogsExtentions 1.0
 
 ApplicationWindow {
+    id: rootWindow
     title: "File Save Dialog Sample"
     width: 640
     height: 480
     visible: true
+
+    FileSaveDialog {
+        id: fileSaveDialog
+        title: "Select File"
+        windowForActivateRequesting: rootWindow
+        nameFilters: [ "Text files (*.txt)", "All files (*)" ]
+        fileName: "default file name"
+        onAccepted: {
+            resultedPathForSaving.text = "File for saving is: " + fileSaveDialog.fileUrl
+        }
+        onRejected: {
+            resultedPathForSaving.text = "Saving dialog was rejected"
+        }
+    }
 
     Text {
         id: resultedPathForSaving
@@ -37,19 +52,6 @@ ApplicationWindow {
             anchors.fill: parent
             onClicked: {
                 fileSaveDialog.open()
-            }
-        }
-
-        FileSaveDialog {
-            id: fileSaveDialog
-            title: "Select File"
-            nameFilters: [ "Text files (*.txt)", "All files (*)" ]
-            fileName: "default file name"
-            onAccepted: {
-                resultedPathForSaving.text = "File for saving is: " + fileSaveDialog.fileUrl
-            }
-            onRejected: {
-                resultedPathForSaving.text = "Saving dialog was rejected"
             }
         }
     }
