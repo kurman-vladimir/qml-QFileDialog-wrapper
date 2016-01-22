@@ -34,10 +34,12 @@ public:
     void setNameFilters(QStringList nameFilters);
 
     QWindow *windowForActivateRequesting() const;
-    void setWindowForActivateRequesting(QWindow* windowForActivateRequesting);
 
     Q_INVOKABLE void open();
     Q_INVOKABLE void close();
+
+public slots:
+    void setWindowForActivateRequesting(QWindow* windowForActivateRequesting);
 
 signals:
     void fileUrlChanged(QUrl fileUrl);
